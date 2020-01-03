@@ -98,18 +98,8 @@ def edit(request):
         return render(request, 'member/edit.html', {"one":data})
 
     if request.method == 'POST':
-        ar = [
-            request.POST['name'], 
-            request.POST['age'], 
-            request.POST['id']
-        ]
-
-        sql = """
-            UPDATE MEMBER SET NAME=%s, AGE=%s
-            WHERE ID=%s
-        """
-        cursor.execute(sql, ar)
-        return redirect("/member/index")
+       pass     
+        
 
 @csrf_exempt
 def delete(request):

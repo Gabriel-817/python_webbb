@@ -7,4 +7,5 @@ urlpatterns = [
     path('content', views.content, name="content"),
     path('edit', views.edit, name="edit"),
     path('delete', views.delete, name="delete"),
+    path('dataframe', views.dataframe, name="dataframe"),
 ]
