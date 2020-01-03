@@ -1,0 +1,27 @@
+<!-- 파일명 : templates/join.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h3>{{title}}</h3>
+    <hr/>
+    {% for one in list %}
+        {{one.0}}
+        {{one.1}}
+        {{one.2}}
+        {{one.3}}
+        {{one.4}}
+        <br/>
+    {% endfor %}
+
+    </form>
+    <form action="/member/index" method="get">
+    <input type="submit" value="index" name="index"/>
+    </form>
+</body>
+</html>

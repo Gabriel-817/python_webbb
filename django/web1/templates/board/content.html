@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Content</title>
+    <link rel='stylesheet' href="/static/css/bootstrap.min.css" />
+</head>
+<body>
+    <div class="container">
+        <div style="margin-top:5px; margin-bottom: 5px;">
+            <h3>글내용</h3>
+        </div>
+        <table class="table">
+            <tr>
+                <th class="bg-light">글번호</th>
+                <td>{{ one.0 }}</td>
+            </tr>
+            <tr>
+                <th class="bg-light">제목</th>
+                <td>{{ one.1 }}</td>
+            </tr>
+            
+            <tr>
+                <th class="bg-light">내용</th>
+                <td>
+                    {% autoescape off %}
+                    {{ one.2 | linebreaksbr }}
+                    {% endautoescape %}
+                </td>
+            </tr>
+            
+            <tr>
+                <th class="bg-light">이미지</th>
+                <!-- <td><img src="/static/img/google.png" /></td> -->
+                <td><img src="data:;base64,{{image}}" width="400px" height="400"></td>
+            </tr>
+
+            <tr>
+                <th class="bg-light">작성자</th>
+                <td>{{ one.3 }}</td>
+            </tr>
+            <tr>
+                <th class="bg-light">조회수</th>
+                <td>{{ one.4 }}</td>
+            </tr>            
+            <tr>
+                <th class="bg-light">날짜</th>
+                <td>{{ one.5 }}</td>
+            </tr>            
+        </table>
+        <a href="/board/list" class="btn btn-success">목록으로</a>
+        {% if prev > 0 %}
+        <a href="/board/content?no={{prev}}" class="btn btn-success">이전글</a>
+        {% else %}
+        <a href="#" class="btn btn-success disabled">이전글</a>
+        {% endif %}
+        
+        {% if next > 0 %}
+        <a href="/board/content?no={{next}}" class="btn btn-success">다음글</a>
+        {% else %}
+        <a href="#" class="btn btn-success disabled">다음글</a>
+        {% endif %}
+        <a href="/board/edit?no={{one.0}}" class="btn btn-success">글수정</a>
+        <a href="/board/delete" class="btn btn-success">글삭제</a>
+    </div>
+</body>
+</html>

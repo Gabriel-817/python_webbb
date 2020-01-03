@@ -1,0 +1,30 @@
+{% include "./head.html" %}
+<body>
+  {% include "./menu.html" %}
+
+    <!-- 58~61 -->
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Pricing</h1>
+        <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+    </div>
+
+    <h3>MAIN</h3>
+    <hr/>
+
+    {% if not request.session.userid %}
+        <a href="/member/login">로그인</a>
+        <a href="/member/join">회원가입</a>
+    {% else %}
+        <h4> {{request.session.username}}님 반갑습니다.</h4>
+        <hr/>
+        <a href="/member/edit">회원정보 수정</a>
+        <!-- a 태그는 GET방식, POST로 할려면 아래처럼 버튼 생성해야 함 -->
+        <a href="/member/delete">회원탈퇴</a>
+        <form action = "/member/delete" method="POST">
+            <input type="submit" value="회원탈퇴" />
+        </form>
+        <a href="/member/logout">로그아웃</a>
+    {% endif %}
+
+</body>
+</html>
