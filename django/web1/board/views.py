@@ -8,6 +8,48 @@ from base64 import b64encode # byte배열을 base64로 변경함.
 cursor = connection.cursor()
 
 @csrf_exempt
+def edit(request):
+    if request.method=='GET':
+        no = request.GET.get("no",0)
+
+        sql = """
+            SELECT NO, TITLE, CONTENT
+            FROM BOARD_TABLE1
+            WHERE NO=%s
+        """
+        cursor.execute(sql, [no])
+        data = cursor.fetchone()
+        return render(request, 'board/edit.html', {"one:data"})
+
+    elif request.method=='POST':
+        no = request.POST['no']
+        ti = request.POST['title']
+        co = request.POST['content']
+        
+        arr = [ti, co, no]
+        sql = """
+            UPDATE BOARD_TABLE1 SET TITLE=%s,
+            CONTENT=%s WHERE NO=%s
+        """
+        cursor.execute(sql, [no])
+        return redirect("/board/content?no="+no)
+
+        
+
+@csrf_exempt
+def delete(request):
+    if request.method=='GET':
+        no = request.GET.get("no", 0)
+
+        sql = """
+            DELETE FROM BOARD_TABLE1
+            WHERE NO=%s
+        """
+        cursor.execute(sql, [no])
+        return redirect("/board/list")
+
+
+@csrf_exempt
 def write(request):
     if request.method=='GET':
         return render(request, 'board/write.html')
