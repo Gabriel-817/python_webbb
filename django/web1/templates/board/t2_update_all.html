@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h3>일괄 수정</h3>
+    <form action="/board/t2_update_all" method="post">
+    <input type="hidden" name="menu" value="2" />
+    {% csrf_token %}
+        <table border="0">
+            {% for one in list %}
+                <tr>
+                    <td><input type="hidden" value={{one.no}} name="no[]" readonly/></td>
+                    <td><input type="text" value={{one.name}} name="name[]" />이름</td>
+                    <td><input type="text" value={{one.kor}} name="kor[]" />국어</td>
+                    <td><input type="text" value={{one.eng}} name="eng[]" />영어</td>
+                    <td><input type="text" value={{one.math}} name="math[]" />수학</td>
+                </tr>
+                {% endfor %}
+        </table>
+        <input type="submit" value="일괄 수정" />
+    </form>
+</body>
+</html> 

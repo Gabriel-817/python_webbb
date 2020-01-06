@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>update</title>
+</head>
+<body>
+    <h3>update</h3>
+    <hr />
+    <form action="/board/t2_update" method="post">
+        <table>
+            <tr>
+                <td>
+                    <input type="hidden" name="no"
+                        value="{{ one.no }}"/>
+                    <input type="text" name="name"
+                    value="{{ one.name }}"/>이름
+                </td>
+                <td>
+                    <input type="text" name="kor"
+                    value="{{ one.kor }}"/>국어
+                </td>
+                <td>
+                    <input type="text" name="eng"
+                    value="{{ one.eng }}"/>영어
+                </td>
+                <td><input type="text" name="math"
+                    value="{{ one.math }}"/>수학
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="수정" />
+    </form>
+</body>
+</html>
