@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    {% if not request.user.is_authenticated %}
+        <a href="/member/auth_login">로그인</a>
+        <a href="/member/auth_join">회원가입</a>
+    {% else %}
+        세션에 있는 사용자ID : {{request.user}}<br />
+        세션에 있는 이름 정보 : {{request.user.first_name}}<br />
+        세션에 있는 이메일 정보 : {{request.user.email}}<br />
+        {{request.user}} 님 로그인 중
+        <a href="/member/auth_edit">정보수정</a>
+        <a href="/member/auth_pw">비번변경</a>
+        <a href="/member/auth_logout">로그아웃</a>
+    {% endif %}
+</body>
+</html>

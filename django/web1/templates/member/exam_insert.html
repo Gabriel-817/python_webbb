@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h3>학생 명단</h3>
+    <hr />
+    <form action="/member/exam_insert" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><input type="text" name="name"/>학생이름</td>
+                <td><input type="text" name="kor"/>국어</td>
+                <td><input type="text" name="eng"/>영어</td>
+                <td><input type="text" name="math"/>수학</td>
+                <td><input type="text" name="classroom" value="3"/>반</td>
+            </tr>
+        </table>
+        <input type="submit" value="추가" />
+    </form>
+</body>
+</html>
