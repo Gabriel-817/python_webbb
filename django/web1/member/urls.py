@@ -22,6 +22,7 @@ urlpatterns = [
     path('exam_select', views.exam_select, name="exam_select"),
     path('exam_update', views.exam_update, name="exam_update"),
     path('exam_delete', views.exam_delete, name="exam_delete"),
-    path('exam_result', views.exam_result, name="exam_result"),
-
+    
+    path('js_index', views.js_index, name="js_index"),
+    path('js_chart', views.js_chart, name="js_chart"),
 ]

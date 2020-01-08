@@ -1,17 +1,53 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-#DB 연결
 from django.db import connection
+
 cursor = connection.cursor()
 
-# django에서 제공하는 User 모델
+#django에서 제공하는 User 모델
 from django.contrib.auth.models import User
 from django.contrib.auth import login as login1
 from django.contrib.auth import logout as logout1
 from django.contrib.auth import authenticate as auth1
+
 from .models import Table2
 from django.db.models import Sum, Max, Min, Count, Avg
+
+def js_index(request):
+    return render(request, 'member/js_index.html')
+
+def js_chart(request):
+    str = "100, 200, 300, 400, 200, 100"
+    return render(request, 'member/js_chart.html',  {"str":str})
+
+def exam_select(request):
+    txt = request.GET.get("txt","")
+    page = int(request.GET.get("page", 1))
+    # 1 => 0, 10
+    # 2 => 10, 20
+    # 3 => 20, 30
+
+    if txt == "":
+        # SELECT * FROM MEMBER_TABLE2
+        list = Table2.objects.all()[page*10-10:page*10]
+    
+        # SELECT COUNT(*) FROM MEMBER_TABLE2
+        cnt = Table2.objects.all().count()
+        tot = (cnt-1)//10+1
+        # 10 => 1
+        # 13 => 2
+        # 20 => 2
+        # 31 => 4
+    else: # 검색어가 있는 경우
+        # SELECT * FROM WHERE name LIKE '%가%'
+        list = Table2.objects.filter(name__contains=txt)[page*10-10:page*10]
+        
+        #SELECT COUNT(*) FROM MT2 WHERE name LIKE '%가%'
+        cnt = Table2.objects.filter(name__contains=txt).count()
+        tot = (cnt-1)//10+1
+    return render(request, 'member/exam_select.html',
+        {"list":list, "pages":range(1,tot+1,1)})
 
 
 def exam_result(request):
@@ -90,27 +126,6 @@ def exam_insert(request):
 
         return redirect("/member/exam_select")
 
-
-def exam_select(request):
-    if request.method=="GET":
-        no= request.GET.get('no',0)
-        #SELECT SUM(math) FROM MEMBER_TABLE2
-        rows = Table2.objects.aggregate(Sum('math'))
-        
-        # SELECT NO, NAME FROM MEMBER_TABLE2
-        rows = Table2.objects.all().values(['no','name'])
-        
-        # SELECT * FROM MEMBER_TABLE2 ORDER BY name ASC
-        rows = Table2.objects.all().order_by('name')
-        #rows = Table2.objects.raw(SELECT * FROM MEMBER_TABLE2 ORDER BY name ASC)
-
-        # 반별 국어, 영어, 수학 합계
-        # SELECT SUM(kor) AS kor, SUM(eng) AS eng, SUM(math) AS math FROM MEMBER_TABLE2 GROUP BY CLASSROOM
-        list = Table2.objects.values('classroom').annotate(kor=Sum('kor'),eng=Sum('eng'),math=Sum('math'))   
- 
-
-        return render(request, "member/exam_select.html", {"rows": rows})
-    
 
 
 
